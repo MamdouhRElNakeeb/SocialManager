@@ -95,6 +95,42 @@ public class NetworklUser implements Parcelable {
         dest.writeString(this.serverAuthCode);
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public String getPageLink() {
+        return pageLink;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public String getTokenId() {
+        return tokenId;
+    }
+
+    public String getServerAuthCode() {
+        return serverAuthCode;
+    }
+
     public static final class Builder {
         private String userId;
         private String accessToken;

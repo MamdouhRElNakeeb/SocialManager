@@ -101,7 +101,7 @@ public class TwitterAuthActivity extends AuthenticationActivity {
                 User data = userResult.data;
                 NetworklUser user = NetworklUser.newBuilder().userId(String.valueOf(data.getId()))
                         .accessToken(session.getAuthToken().token)
-                        .profilePictureUrl(String.format(PROFILE_PIC_URL, data.screenName))
+                        .profilePictureUrl(userResult.data.profileImageUrl)
                         .email(data.email != null ? data.email : "")
                         .fullName(data.name)
                         .username(data.screenName)

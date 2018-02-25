@@ -58,7 +58,7 @@ public class FacebookAuthActivity extends AuthenticationActivity
         showDialog();
         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), this);
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email,link");
+        parameters.putString("fields", "id,name,email,link,gender,cover,picture.type(large)");
         request.setParameters(parameters);
         request.executeAsync();
     }
@@ -76,10 +76,20 @@ public class FacebookAuthActivity extends AuthenticationActivity
 
     @Override public void onCompleted(JSONObject object, GraphResponse response) {
         try {
+
+            JSONObject data = response.getJSONObject();
+            String profilePicUrl = "";
+
+            if (data.has("picture")) {
+                profilePicUrl = data.getJSONObject("picture").getJSONObject("data").getString("url");
+            }
+            else {
+                profilePicUrl = String.format(PROFILE_PIC_URL, object.getString("id"));
+            }
             NetworklUser user = NetworklUser.newBuilder()
                     .userId(object.getString("id"))
                     .accessToken(AccessToken.getCurrentAccessToken().getToken())
-                    .profilePictureUrl(String.format(PROFILE_PIC_URL, object.getString("id")))
+                    .profilePictureUrl(profilePicUrl)
                     .email(object.getString("email"))
                     .fullName(object.getString("name"))
                     .pageLink(object.getString("link"))
